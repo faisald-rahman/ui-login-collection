@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Facebook Login</title>
+  </head>
+  <body class="bg-[#f2f4f7]">
+    <div class="p-2">
+      source:
+      <a href="https://www.facebook.com/login" class="text-blue-500"
+        >facebook login</a
+      >
+    </div>
+    <main
+      class="flex justify-center items-center absolute left-[50%] top-[50%] transform-[translate(-50%,-50%)]"
+    >
+      <div class="inline-flex flex-col items-center">
+        <img class="w-[240px]" src="/resources/logofb.svg" />
+        <div
+          class="rounded-lg w-[400px] flex flex-col items-center pt-6 px-4 pb-4 shadow-[0px_2px_4px_rgba(0,0,0,.1),0px_8px_16px_rgba(0,0,0,.1)] bg-white"
+        >
+          <div class="text-lg mb-4">Log in to Facebook</div>
+          <form class="flex flex-col gap-2 w-full">
+            <input
+              placeholder="Email address or phone number"
+              class="text-[17px] p-[14px_16px] w-full border border-solid border-[#dddfe2] rounded-lg"
+            />
+            <div
+              class="w-full p-[14px_16px] border border-solid border-[#dddfe2] rounded-lg flex items-center gap-2"
+            >
+              <input
+                id="pass"
+                placeholder="Password"
+                type="password"
+                class="text-[17px] flex-grow"
+              />
+              <button
+                class="cursor-pointer w-4 h-4"
+                onclick="onEyeClick()"
+                type="button"
+              >
+                <img
+                  id="eyeImg"
+                  class="hidden"
+                  src="/resources/fbEyeClose.png"
+                />
+              </button>
+            </div>
+            <button
+              class="bg-[#1877f2] w-full border-none text-xl leading-[48px] rounded-md text-white font-bold cursor-pointer"
+              type="submit"
+            >
+              Log in
+            </button>
+          </form>
+          <div class="flex flex-col mt-2.5 gap-2.5 w-full items-center">
+            <a class="text-sm cursor-pointer hover:underline text-[#1877f2]"
+              >Forgotten account?</a
+            >
+            <div class="relative w-full h-4 flex items-center mb-1">
+              <hr class="text-[#d7dade] w-full" />
+              <span
+                class="absolute bg-white w-[50px] text-center text-xs text-[#96999e] left-[50%] top-[50%] transform-[translate(-50%,-50%)]"
+                >or</span
+              >
+            </div>
+            <a
+              role="button"
+              class="bg-[#42b72a] w-[230px] border-none text-lg leading-[48px] rounded-md text-white font-bold text-center px-4 cursor-pointer"
+              >Create new account</a
+            >
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>
+      var inputPassword = document.getElementById("pass");
+      var eyeImg = document.getElementById("eyeImg");
+
+      inputPassword.oninput = function () {
+        if (inputPassword.value === "") {
+          eyeImg.classList.add("hidden");
+        } else if (eyeImg.classList.contains("hidden")) {
+          eyeImg.classList.remove("hidden");
+        }
+      };
+
+      function onEyeClick() {
+        if (inputPassword.type === "password") {
+          inputPassword.type = "text";
+          eyeImg.src = "/resources/fbEye.png";
+        } else {
+          inputPassword.type = "password";
+          eyeImg.src = "/resources/fbEyeClose.png";
+        }
+      }
+    </script>
+  </body>
+</html>
