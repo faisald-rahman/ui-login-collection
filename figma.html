@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Figma Login</title>
+    <style>
+      html * {
+        font-family: figma !important;
+      }
+
+      @font-face {
+        font-family: "figma";
+        font-style: normal;
+        font-weight: 300;
+        src: url("resources/font/figma/Figma-Standard-Text-Light.woff2")
+          format("woff2");
+      }
+      @font-face {
+        font-family: "figma";
+        font-style: normal;
+        font-weight: 400;
+        src: url("resources/font/figma/Figma-Standard-Text-Regular.woff2")
+          format("woff2");
+      }
+      @font-face {
+        font-family: "figma";
+        font-style: normal;
+        font-weight: 500;
+        src: url("resources/font/figma/Figma-Standard-Text-Medium.woff2")
+          format("woff2");
+      }
+      @font-face {
+        font-family: "figma";
+        font-style: normal;
+        font-weight: 600;
+        src: url("resources/font/figma/Figma-Standard-Text-Bold.woff2")
+          format("woff2");
+      }
+    </style>
+  </head>
+  <body>
+    <div class="p-2">
+      source:
+      <a href="https://www.figma.com/login" class="text-blue-500"
+        >figma login</a
+      >
+    </div>
+    <main
+      class="flex justify-center items-center absolute left-[50%] top-[50%] transform-[translate(-50%,-50%)]"
+    >
+      <div class="w-[358px] flex flex-col items-center">
+        <h2 class="text-[32px] mb-5 font-medium">Sign in to Figma</h2>
+        <button
+          class="text-lg flex items-center gap-3 rounded-lg border border-solid border-[#2c2c2c] h-12 px-5 w-full justify-center font-medium cursor-pointer"
+        >
+          <img src="resources/google.svg" alt="google" />
+          Continue with Google
+        </button>
+        <span class="text-sm font-light my-5">or</span>
+        <form class="w-full">
+          <div class="relative h-[53px] w-full mb-5">
+            <label class="absolute text-[11px] inset-[.5rem_.75rem_auto]"
+              >EMAIL</label
+            >
+            <input
+              autofocus
+              class="bg-[#00000014] w-full h-full text-lg font-light p-[1.5rem_.75rem_.375rem] rounded-md border-solid border-0 hover:border"
+            />
+          </div>
+          <div class="relative h-[53px] w-full mb-7">
+            <label class="absolute text-[11px] inset-[.5rem_.75rem_auto]"
+              >PASSWORD</label
+            >
+            <input
+              type="password"
+              class="bg-[#00000014] w-full h-full text-lg font-light p-[1.5rem_.75rem_.375rem] rounded-md border-solid border-0 hover:border tracking-[3.6px]"
+            />
+          </div>
+          <button
+            type="submit"
+            class="relative text-lg flex items-center rounded-lg border border-solid border-[#2c2c2c] h-12 px-5 w-full justify-center font-medium cursor-pointer bg-black text-white hover:[&>img]:opacity-100 hover:[&>img]:translate-x-[-28px] hover:[&>span]:translate-x-[9px]"
+          >
+            <img
+              class="absolute opacity-0 transition-[all_.16s_ease-out_0s] translate-x-[-40px]"
+              src="resources/arrowRight.svg"
+              alt="right"
+            />
+            <span class="transition-[translate_.16s_ease-out_0s]">Login</span>
+          </button>
+          <div class="text-sm flex flex-col gap-4 mt-5 text-center">
+            <a class="text-[#007be5] cursor-pointer underline font-bold"
+              >Use single sign-on</a
+            >
+            <a class="text-[#007be5] cursor-pointer underline font-bold"
+              >Reset password</a
+            >
+            <div class="text-[#697485]">
+              No account?
+              <a class="text-[#007be5] cursor-pointer underline font-bold"
+                >Create one</a
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
