@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Microsoft Login</title>
+    <style>
+      html * {
+        font-family: "Segoe UI Webfont" !important;
+      }
+
+      @font-face {
+        font-family: "Segoe UI Webfont";
+        src: url("resources/font/segoe-ui/segoe-ui-light.ttf");
+        font-weight: 200;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Segoe UI Webfont";
+        src: url("resources/font/segoe-ui/segoe-ui-regular.ttf");
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Segoe UI Webfont";
+        src: url("resources/font/segoe-ui/segoe-ui-semibold.ttf");
+        font-weight: 600;
+        font-style: normal;
+      }
+
+      .show-from-left {
+        animation-name: show-from-left;
+        animation-duration: 0.25s;
+        animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+        animation-fill-mode: both;
+        transition-property: left;
+      }
+
+      .show-from-right {
+        animation-name: show-from-right;
+        animation-duration: 0.25s;
+        animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+        animation-fill-mode: both;
+        transition-property: left;
+      }
+
+      .go-to-left {
+        animation-name: go-to-left;
+        animation-duration: 0.25s;
+        animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+        animation-fill-mode: both;
+        transition-property: left;
+      }
+
+      .go-to-right {
+        animation-name: go-to-right;
+        animation-duration: 0.25s;
+        animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+        animation-fill-mode: both;
+        transition-property: left;
+      }
+
+      @keyframes show-from-left {
+        0% {
+          left: -200px;
+          opacity: 0;
+        }
+        100% {
+          left: 0;
+          opacity: 1;
+        }
+      }
+
+      @keyframes show-from-right {
+        0% {
+          left: 200px;
+          opacity: 0;
+        }
+        100% {
+          left: 0;
+          opacity: 1;
+        }
+      }
+
+      @keyframes go-to-left {
+        0% {
+          left: 0;
+          opacity: 1;
+        }
+        100% {
+          left: -200px;
+          opacity: 0;
+        }
+      }
+
+      @keyframes go-to-right {
+        0% {
+          left: 0;
+          opacity: 1;
+        }
+        100% {
+          left: 200px;
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="bg-[url(resources/img/microsoft/bg-microsoft.svg)] bg-no-repeat bg-size-[100%_100%] w-svw h-svh overflow-y-hidden max-sm:bg-[url()]"
+  >
+    <div class="p-2">
+      source:
+      <a href="https://login.microsoftonline.com/" class="text-blue-500"
+        >Microsoft login</a
+      >
+    </div>
+    <main
+      class="flex flex-col gap-5 justify-center items-center absolute left-[50%] top-[50%] transform-[translate(-50%,-50%)] max-sm:relative max-sm:w-full max-sm:left-0 max-sm:top-0 max-sm:transform-none"
+    >
+      <div
+        class="shadow-[0_2px_6px_rgba(0,0,0,0.2)] p-[44px] flex flex-col w-[440px] bg-white overflow-hidden max-sm:shadow-none"
+      >
+        <img
+          class="w-[108px] h-[24px] mb-3"
+          src="resources/img/microsoft/microsoft.svg"
+        />
+        <div id="anim-container" class="relative show-from-right">
+          <div id="email-input-container">
+            <div class="font-semibold text-2xl mb-2">Sign in</div>
+            <div id="email-error" class="text-[#e81123] hidden text-[15px]">
+              Enter a valid email address, phone number, or Skype name.
+            </div>
+            <form id="login-form" class="w-full flex flex-col gap-5">
+              <input
+                id="email"
+                class="border-[rgba(0,0,0,0.6)] border-b border-solid outline-none p-[6px_10px] pl-0 h-9 w-full"
+                placeholder="Email, phone, or Skype"
+              />
+              <div class="text-[13px]">
+                No account?
+                <a
+                  href=""
+                  class="text-[#0067b8] hover:underline hover:text-[#7c8082]"
+                  >Create one!</a
+                >
+              </div>
+              <button
+                id="no-access"
+                type="button"
+                class="text-[#0067b8] text-[13px] cursor-pointer w-fit hover:underline hover:text-[#7c8082]"
+              >
+                Can’t access your account?
+              </button>
+              <div class="flex justify-end gap-1">
+                <button
+                  type="button"
+                  class="p-[4px_12px] text-[15px] bg-[rgba(0,0,0,0.2)] w-[108px] hover:bg-[rgba(0,0,0,00.31)] cursor-pointer"
+                >
+                  Back
+                </button>
+                <button
+                  id="submit-btn"
+                  type="submit"
+                  class="p-[4px_12px] bg-[#0067b8] text-white text-[15px] w-[108px] hover:bg-[#005da6] cursor-pointer"
+                >
+                  Next
+                </button>
+              </div>
+            </form>
+          </div>
+          <div id="choose-account-container" class="hidden">
+            <div class="font-semibold text-2xl mb-2">
+              Which type of account do you need help with?
+            </div>
+            <div class="ml-[-44px] mr-[-44px] mb-6">
+              <button
+                class="w-full p-[12px_44px] hover:bg-[rgba(0,0,0,0.15)] cursor-pointer"
+              >
+                <div class="flex gap-3 items-center">
+                  <img src="resources/img/microsoft/work-account.svg" />
+                  <div class="flex flex-col items-start [&>span]:text-left">
+                    <span class="text-[15px] leading-4"
+                      >Work or school account</span
+                    >
+                    <span class="text-[12px]"
+                      >Created by your IT department</span
+                    >
+                  </div>
+                </div>
+              </button>
+              <button
+                class="w-full p-[12px_44px] hover:bg-[rgba(0,0,0,0.15)] cursor-pointer"
+              >
+                <div class="flex gap-3 items-center">
+                  <img src="resources/img/microsoft/personal_account.svg" />
+                  <div class="flex flex-col items-start [&>span]:text-left">
+                    <span class="text-[15px] leading-4">Personal account</span>
+                    <span class="text-[12px]">Created by you</span>
+                  </div>
+                </div>
+              </button>
+            </div>
+            <div class="flex justify-end">
+              <button
+                id="back-account-btn"
+                type="button"
+                class="p-[4px_12px] text-[15px] bg-[rgba(0,0,0,0.2)] w-[108px] hover:bg-[rgba(0,0,0,00.31)] cursor-pointer ml-auto"
+              >
+                Back
+              </button>
+            </div>
+          </div>
+          <div id="options-container" class="hidden">
+            <div class="font-semibold text-2xl mb-2">Sign-in options</div>
+            <div class="ml-[-44px] mr-[-44px] mb-6">
+              <button
+                class="w-full p-[12px_44px] hover:bg-[rgba(0,0,0,0.15)] cursor-pointer"
+              >
+                <div class="flex gap-3 items-center">
+                  <img src="resources/img/microsoft/security.svg" />
+                  <div class="flex flex-col items-start [&>span]:text-left">
+                    <span class="text-[15px] leading-4"
+                      >Face, fingerprint, PIN or security key</span
+                    >
+                    <span class="text-[12px]"
+                      >Use your device to sign in with a passkey.</span
+                    >
+                  </div>
+                  <div id="security-question" class="cursor-pointer ml-auto">
+                    <img src="resources/img/microsoft/question.svg" />
+                  </div>
+                </div>
+              </button>
+              <button
+                class="w-full p-[12px_44px] hover:bg-[rgba(0,0,0,0.15)] cursor-pointer"
+              >
+                <div class="flex gap-3 items-center">
+                  <img src="resources/img/microsoft/github.svg" />
+                  <div class="flex flex-col items-start [&>span]:text-left">
+                    <span class="text-[15px] leading-4"
+                      >Sign in with GitHub</span
+                    >
+                    <span class="text-[12px]">Personal accounts only</span>
+                  </div>
+                  <div id="github-question" class="cursor-pointer ml-auto">
+                    <img src="resources/img/microsoft/question.svg" />
+                  </div>
+                </div>
+              </button>
+              <button
+                id="sign-in-organization-btn"
+                class="w-full p-[12px_44px] hover:bg-[rgba(0,0,0,0.15)] cursor-pointer"
+              >
+                <div class="flex gap-3 items-center">
+                  <img src="resources/img/microsoft/work-account.svg" />
+                  <div class="flex flex-col items-start [&>span]:text-left">
+                    <span class="text-[15px] leading-4"
+                      >Sign in to an organization</span
+                    >
+                    <span class="text-[12px]"
+                      >Search for a company or an organization you're working
+                      with.</span
+                    >
+                  </div>
+                </div>
+              </button>
+            </div>
+            <div class="flex justify-end">
+              <button
+                id="back-options-btn"
+                type="button"
+                class="p-[4px_12px] text-[15px] bg-[rgba(0,0,0,0.2)] w-[108px] hover:bg-[rgba(0,0,0,00.31)] cursor-pointer ml-auto"
+              >
+                Back
+              </button>
+            </div>
+          </div>
+          <div id="organization-input-container" class="hidden">
+            <div class="font-semibold text-2xl mb-4">
+              Find your organization
+            </div>
+            <div id="email-error" class="text-[#e81123] hidden text-[15px]">
+              Enter a valid email address, phone number, or Skype name.
+            </div>
+            <div class="text-[15px] leading-5 mb-2">
+              Enter the domain name of the organization you'd like to sign in
+              to.
+            </div>
+            <div id="domain-error" class="text-[#e81123] hidden text-[15px]">
+              Please enter a domain name
+            </div>
+            <form id="organization-form" class="w-full flex flex-col gap-11">
+              <input
+                id="organization-input"
+                class="border-[rgba(0,0,0,0.6)] border-b border-solid outline-none p-[6px_10px] pl-0 h-9 w-full"
+                placeholder="Domain Name"
+              />
+              <div class="flex justify-end gap-1">
+                <button
+                  id="back-organization-btn"
+                  type="button"
+                  class="p-[4px_12px] text-[15px] bg-[rgba(0,0,0,0.2)] w-[108px] hover:bg-[rgba(0,0,0,00.31)] cursor-pointer"
+                >
+                  Back
+                </button>
+                <button
+                  id="submit-organization-btn"
+                  type="submit"
+                  class="p-[4px_12px] bg-[#0067b8] text-white text-[15px] w-[108px] hover:bg-[#005da6] cursor-pointer"
+                >
+                  Next
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div
+        id="options-btn-container"
+        class="shadow-[0_2px_6px_rgba(0,0,0,0.2)] bg-white w-[440px] h-[48px] max-sm:shadow-none max-sm:w-[352px] max-sm:border max-sm:border-solid max-sm:border-rgba(0,0,0,0.4)"
+      >
+        <button
+          id="options-btn"
+          class="p-[8px_44px] flex items-center gap-3 cursor-pointer hover:bg-[rgba(0,0,0,0.15)] w-full max-sm:p-[8px_24px]"
+        >
+          <img
+            src="resources/img/microsoft/key.svg"
+            class="w-[32px] h-[32px]"
+          />
+          <span class="text-[15px] leading-4">Sign-in Options</span>
+        </button>
+      </div>
+      <div
+        id="detail-container"
+        class="absolute w-svw h-svh bg-[rgba(0,0,0,0.55)] flex justify-center items-center hidden"
+      >
+        <div class="w-[562px] p-[28px] bg-white">
+          <div id="security-detail-container" class="hidden">
+            <div class="flex gap-3 items-center font-semibold my-4">
+              <img
+                src="resources/img/microsoft/security.svg"
+                class="h-12 w-12"
+              />
+              <span class="text-2xl"
+                >Face, fingerprint, PIN or security key</span
+              >
+            </div>
+            <p class="text-[15px] leading-5">
+              It's easier and safer to sign in with passkeys. You can sign in
+              using your face, fingerprint, PIN, or use another device like a
+              phone or security key. No passwords, apps, or codes needed.
+            </p>
+          </div>
+          <div id="github-detail-container" class="hidden">
+            <div class="flex gap-3 items-center font-semibold my-4">
+              <img src="resources/img/microsoft/github.svg" class="h-12 w-12" />
+              <span class="text-2xl">Sign in with GitHub</span>
+            </div>
+            <p class="text-[15px] leading-5">
+              To use this option, you must have previously linked your personal
+              Microsoft account to a GitHub account.
+              <br />
+              <br />
+              You can't use this option to access work or school resources.
+            </p>
+          </div>
+          <div class="mt-4 flex justify-end">
+            <button
+              id="close-detail"
+              class="p-[4px_12px] bg-[#0067b8] text-white text-[15px] w-[108px] hover:bg-[#005da6] cursor-pointer"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>
+      let form = document.getElementById("login-form");
+      let submitBtn = document.getElementById("submit-btn");
+      let submitOrganizationBtn = document.getElementById(
+        "submit-organization-btn"
+      );
+      let optionsBtn = document.getElementById("options-btn");
+      let signInOrganizationBtn = document.getElementById(
+        "sign-in-organization-btn"
+      );
+      let backAccountBtn = document.getElementById("back-account-btn");
+      let backOptionsBtn = document.getElementById("back-options-btn");
+      let backOrganizationBtn = document.getElementById(
+        "back-organization-btn"
+      );
+      let securityQuestionBtn = document.getElementById("security-question");
+      let githubQuestionBtn = document.getElementById("github-question");
+      let closeDetailBtn = document.getElementById("close-detail");
+      let emailInput = document.getElementById("email");
+      let organizationInput = document.getElementById("organization-input");
+      let error = document.getElementById("email-error");
+      let domainError = document.getElementById("domain-error");
+      let noAccessBtn = document.getElementById("no-access");
+      let animContainer = document.getElementById("anim-container");
+      let detailContainer = document.getElementById("detail-container");
+      let securityDetailContainer = document.getElementById(
+        "security-detail-container"
+      );
+      let githubDetailContainer = document.getElementById(
+        "github-detail-container"
+      );
+      let emailInputContainer = document.getElementById(
+        "email-input-container"
+      );
+      let organizationInputContainer = document.getElementById(
+        "organization-input-container"
+      );
+      let chooseAccountContainer = document.getElementById(
+        "choose-account-container"
+      );
+      let optionsContainer = document.getElementById("options-container");
+      let optionsBtnContainer = document.getElementById(
+        "options-btn-container"
+      );
+
+      let isShowError = false;
+
+      function onClickSubmit(event) {
+        event.preventDefault();
+
+        if (emailInput.value === "") {
+          isShowError = true;
+          error.classList.remove("hidden");
+          emailInput.classList.add("!border-[#e81123]");
+        }
+      }
+
+      function onClickSubmitOrganization(event) {
+        event.preventDefault();
+
+        if (organizationInput.value === "") {
+          isShowError = true;
+          domainError.classList.remove("hidden");
+          organizationInput.classList.add("!border-[#e81123]");
+        }
+      }
+
+      function onClickOption() {
+        animContainer.classList.remove("show-from-right");
+        animContainer.classList.add("go-to-left");
+        optionsBtnContainer.classList.add("hidden");
+        setTimeout(() => {
+          emailInputContainer.classList.add("hidden");
+          optionsContainer.classList.remove("hidden");
+          animContainer.classList.remove("go-to-left");
+          animContainer.classList.add("show-from-right");
+          error.classList.add("hidden");
+          emailInput.classList.remove("!border-[#e81123]");
+        }, 300);
+      }
+
+      function onClickSignInOrganization() {
+        animContainer.classList.remove("show-from-right");
+        animContainer.classList.add("go-to-left");
+        optionsBtnContainer.classList.add("hidden");
+        setTimeout(() => {
+          optionsContainer.classList.add("hidden");
+          organizationInputContainer.classList.remove("hidden");
+          animContainer.classList.remove("go-to-left");
+          animContainer.classList.add("show-from-right");
+        }, 300);
+      }
+
+      function onClickNoAcces() {
+        animContainer.classList.remove("show-from-right");
+        animContainer.classList.add("go-to-left");
+        optionsBtnContainer.classList.add("hidden");
+        setTimeout(() => {
+          emailInputContainer.classList.add("hidden");
+          chooseAccountContainer.classList.remove("hidden");
+          animContainer.classList.remove("go-to-left");
+          animContainer.classList.add("show-from-right");
+          error.classList.add("hidden");
+          emailInput.classList.remove("!border-[#e81123]");
+        }, 300);
+      }
+
+      function onClickBackAccount() {
+        animContainer.classList.remove("show-from-right");
+        animContainer.classList.remove("go-to-left");
+        animContainer.classList.add("go-to-right");
+        setTimeout(() => {
+          emailInputContainer.classList.remove("hidden");
+          chooseAccountContainer.classList.add("hidden");
+          optionsBtnContainer.classList.remove("hidden");
+          animContainer.classList.remove("go-to-right");
+          animContainer.classList.add("show-from-left");
+        }, 300);
+      }
+
+      function onClickBackOptions() {
+        animContainer.classList.remove("show-from-right");
+        animContainer.classList.remove("go-to-left");
+        animContainer.classList.add("go-to-right");
+        setTimeout(() => {
+          emailInputContainer.classList.remove("hidden");
+          optionsContainer.classList.add("hidden");
+          optionsBtnContainer.classList.remove("hidden");
+          animContainer.classList.remove("go-to-right");
+          animContainer.classList.add("show-from-left");
+        }, 300);
+      }
+
+      function onClickBackOrganization() {
+        animContainer.classList.remove("show-from-right");
+        animContainer.classList.remove("go-to-left");
+        animContainer.classList.add("go-to-right");
+        setTimeout(() => {
+          optionsContainer.classList.remove("hidden");
+          organizationInputContainer.classList.add("hidden");
+          animContainer.classList.remove("go-to-right");
+          animContainer.classList.add("show-from-left");
+          domainError.classList.add("hidden");
+          organizationInput.classList.remove("!border-[#e81123]");
+        }, 300);
+      }
+
+      function onClickSecurityQuestion() {
+        detailContainer.classList.remove("hidden");
+        securityDetailContainer.classList.remove("hidden");
+      }
+
+      function onClickGithubQuestion() {
+        detailContainer.classList.remove("hidden");
+        githubDetailContainer.classList.remove("hidden");
+      }
+
+      function onClickCloseDetail() {
+        detailContainer.classList.add("hidden");
+        if (!securityDetailContainer.classList.contains("hidden")) {
+          securityDetailContainer.classList.add("hidden");
+        } else if (!githubDetailContainer.classList.contains("hidden")) {
+          githubDetailContainer.classList.add("hidden");
+        }
+      }
+
+      function onEmailInputChange() {
+        if (isShowError) {
+          isShowError = false;
+          error.classList.add("hidden");
+          emailInput.classList.remove("!border-[#e81123]");
+        }
+      }
+
+      function onOrganizationInputChange() {
+        if (isShowError) {
+          isShowError = false;
+          domainError.classList.add("hidden");
+          organizationInput.classList.remove("!border-[#e81123]");
+        }
+      }
+
+      submitBtn.addEventListener("click", onClickSubmit);
+      submitOrganizationBtn.addEventListener(
+        "click",
+        onClickSubmitOrganization
+      );
+      optionsBtn.addEventListener("click", onClickOption);
+      signInOrganizationBtn.addEventListener(
+        "click",
+        onClickSignInOrganization
+      );
+      noAccessBtn.addEventListener("click", onClickNoAcces);
+      backAccountBtn.addEventListener("click", onClickBackAccount);
+      backOptionsBtn.addEventListener("click", onClickBackOptions);
+      backOrganizationBtn.addEventListener("click", onClickBackOrganization);
+      securityQuestionBtn.addEventListener("click", onClickSecurityQuestion);
+      githubQuestionBtn.addEventListener("click", onClickGithubQuestion);
+      closeDetailBtn.addEventListener("click", onClickCloseDetail);
+      emailInput.addEventListener("input", onEmailInputChange);
+      organizationInput.addEventListener("input", onOrganizationInputChange);
+    </script>
+  </body>
+</html>
